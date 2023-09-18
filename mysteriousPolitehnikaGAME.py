@@ -1,0 +1,80 @@
+Ihor = {
+    "name": "Ігор",
+    "health": 100,
+    "gold": 0,
+}
+
+StoryPoint = "Старт"
+
+def ShowText(story_text, choices):
+    print(story_text)
+    for i, choice in enumerate(choices, 1):
+        print(f"{i}. {choice}")
+
+# Головний цикл гри
+while True:
+    if StoryPoint == "Старт":
+        ShowText(
+            "Ігор поступив в львівську політехніку і йому потрібно знайти вихід в іт степ бо політехніка по факту такое. Куда йому йти",
+            ["Піти в столовку", "Піти в іт степ", "Спитати в студентів шо йоу робити"]
+        )
+        choice = input("Оберіть номер дії: ")
+        if choice == "1":
+            StoryPoint = "Столовка"
+        elif choice == "2":
+            StoryPoint = "Іт Степ"
+        elif choice == "3":
+            StoryPoint = "Головний Коридор 1"
+
+    elif StoryPoint == "Столовка":
+        ShowText(
+            "Ви зустріли вовка, що будете робити?",
+            ["Дати йому їду", "Вернутись назад", "Заплатити йому"]
+        )
+        choice = input("Оберіть номер дії: ")
+        if choice == "1":
+            print("Ти балбес в тебе нема їди. Ти умер")
+            StoryPoint = "Смерть"
+        elif choice == "2":
+            print("Ти вернувся в коридор, але тебе вдарили. -20 Здоров'я")
+            Ihor["health"] -= 20
+            StoryPoint = "Головний Коридор 2"
+        elif choice == "3":
+            print("В тебе нема грошей. Ти умер")
+            StoryPoint = "Смерть"
+
+    elif StoryPoint == "Смерть":
+        ShowText("Ти умер", [])
+        break
+
+    elif StoryPoint == "Іт Степ":
+        ShowText("Харош. +50 золота", [])
+        Ihor["gold"] += 50
+        break
+
+    elif StoryPoint == "Головний Коридор 1":
+        ShowText(
+            "Вас спитали хто ви",
+            ["Я Ігор, вчусь в іт степі", "Я не Ігор, я не вчусь в іт степі", "Я бард"]
+        )
+        choice = input("Оберіть номер дії: ")
+        if choice == "1":
+            print("ІТ СТЕП ТРИВОГА ААААААААА ВБИЙТЕ ЙОГО")
+            StoryPoint = "Смерть"
+        elif choice == "2":
+            print("ВІН НЕ ІГОР ТРИВОГА ААААААААА ВБИЙТЕ ЙОГО")
+            Ihor["health"] -= 20
+            StoryPoint = "Смерть"
+        elif choice == "3":
+            print("О бард харош. Іди грай музику")
+            StoryPoint = "Музикалка"
+
+    elif StoryPoint == "Смерть":
+        ShowText("Ти умер", [])
+        break
+
+    elif StoryPoint == "Музикалка":
+        ShowText("Тепер ти до кінця життя будеш тут сидіти і грати музику", [])
+        break
+
+print(f"Гра закінчена. Здоров'я: {Ihor['health']}, Золото: {Ihor['gold']}")
